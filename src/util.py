@@ -101,7 +101,8 @@ def draw_handpose(canvas, all_hand_peaks, show_number=False):
             if show_number:
                 ax.text(x, y, str(i))
     bg.draw()
-    canvas = np.fromstring(bg.tostring_rgb(), dtype='uint8').reshape(int(height), int(width), 3)
+    # canvas = np.fromstring(bg.tostring_rgb(), dtype='uint8').reshape(int(height), int(width), 3)
+    canvas = np.frombuffer(bg.tostring_argb(), dtype='uint8').reshape(int(height), int(width), 4)
     return canvas
 
 # image drawed by opencv is not good.
@@ -185,7 +186,7 @@ def handDetect(candidate, subset, oriImg):
     '''
     return value: [[x, y, w, True if left hand else False]].
     width=height since the network require squared input.
-    x, y is the coordinate of top left 
+    x, y is the coordinate of top left
     '''
     return detect_result
 
